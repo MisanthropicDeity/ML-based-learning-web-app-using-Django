@@ -1,0 +1,53 @@
+//first include jquery
+//download html2canvas.js
+
+add script
+
+<script>
+takeScreenshot();	
+	function takeScreenShot(){
+
+		var element = $("#logo") // html element
+		onrendered:function(canvas){
+			var imgData = canvas.toDataURL('image/jpeg')
+			$.ajax({
+				url:'save.php',//save.php is the php saving script to save the captured screenshot to server
+				type:'post',
+				dataType:'text'
+				data:{
+					base64data:imgData
+				}
+			})
+		}
+	}
+</script>
+
+
+<script >
+	//another function
+	function getScreen(){
+		html2canvas(document.body,{
+			dpi:192,
+			onredered: function(canvas){
+				console.log(canvas.toDataURL('image/png'))
+			}
+		})
+	}
+
+</script>
+
+
+then in the button <>
+add href="javascript: getScreen()"
+
+
+
+inside save.php
+
+<?php
+	
+	$data = $_REQUEST['base64data'];
+	4image = explode('based64,',$data);
+	file_put_contents('1.jpg',base64_decode($image[1]));
+	
+?>

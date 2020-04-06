@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang ="en">
+
+<head>
+    <style>
+        .gap-10 {
+           width:100%;
+           height:10px;
+        }
+        .gap-20 {
+           width:100%;
+           height:20px;
+        }
+        .gap-50 {
+           width:100%;
+           height:50px;
+        }
+     </style>
+
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta name="viewport" content = "width=device-width,hieght=device-hieght initial-scale=1.0" />
+    <meta http-equiv = "X-UA-Compatible" content ="ie=edge" />
+    <link rel="stylesheet" type="text/css" href="{% static 'home/style.css' %}">
+    <!-- <script  src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script> -->
+   <!--  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script> -->
+    <script src="{% static 'js/html2canvas.js' %}"></script>
+  <title>Home</title>
+<!--   <script type = "text/javascript">
+        function screenshot() {
+          console.log("1")
+            //var caption = $('#canvas').val();
+            
+            html2canvas(document.body, {
+                dpi: 192,
+                onrendered: function(canvas) {
+                   
+                }
+            });
+        }
+    </script> -->
+    <script type='text/javascript'>
+  function screenshot(){
+    html2canvas(document.body).then(function(canvas) {
+      console.log(typeof canvas)
+      console.log(canvas)
+      var encoded = btoa(JSON.stringify(canvas))
+      console.log(typeof encoded)
+      // var image = canvas.toDataURL("image.png").replace("image.png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+      var link = document.getElementById('link');
+      link.setAttribute('download', 'MintyPaper.png');
+      link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+        link.click();
+
+      window.location.href=image;
+    //document.body.appendChild(canvas);
+   });
+  }
+  </script>
+  
+
+  <script src="https://cdn.rawgit.com/adriancooney/console.image/c9e6d4fd/console.image.min.js"></script>
+
+
+  <script src="http://hongru.github.io/proj/canvas2image/canvas2image.js"></script>
+  
+
+  <script type="text/javascript">
+     function to_image(){
+                var canvas = document.getElementById("canvas");
+                var img = new Image();
+                console.log(canvas);
+                console.image(canvas.toDataURL);
+                document.getElementById("theimage").src = canvas.toDataURL();
+                img = Canvas2Image.convertToImage(canvas,500,500,'png');
+                //console.image(img);
+                //console.log(img);
+            }
+    
+  </script>
+
+
+
+
+
+
+
+
+</head>
+
+
+
+<body>
+	<div>
+		<h1>This will be the starting page.</h1>
+	</div>
+  <!-- <a href="link"></a> -->
+  <div>
+    <canvas id ="canvas">
+      
+    </canvas>
+    <script src="{% static 'home/canvas.js' %}"></script>
+    <img id="canvasImg" alt="Right click to save me!">
+  </div>
+
+
+  <div><button onclick="to_image()">Draw to Image</button></div>
+        <!-- <image id="theimage"></image> -->
+<!--   <button onmouseover="()" id = "clear">clear</button> -->
+  <input type="button" value="clear" id="clear">
+  <input  onclick ='screenshot();' value = "save" id ="save" type = "button">
+
+
+
+  <script type="text/javascript" src="{% static 'home/canvasjs.min.js' %}"></script>
+</body>
+</html>
